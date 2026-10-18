@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "swarm-nav-mesh"
+version = "0.1.0"
+description = "Autonomous Drone Swarm Telemetry & Navigation Mesh in Python/ROS2"
+readme = "README.md"
+authors = [{ name = "koushik4475", email = "koushik4475@gmail.com" }]
+license = { text = "Apache-2.0" }
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24.0",
+    "scipy>=1.10.0",
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "flake8>=6.0.0",
+    "mypy>=1.4.0",
+]
+ros2 = [
+    # ROS2 rclpy and geometry_msgs provided in ROS2 humble/iron/rolling environments
+]
+
+[project.scripts]
+swarm-node = "swarm.flocking:main"
+mesh-node = "mesh.peer:main"
+telemetry-node = "telemetry.planner:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
